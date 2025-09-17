@@ -1,0 +1,65 @@
+A. Reflection
+What was the most challenging part of the workflow? Why?
+The most challenging part was designing the data preprocessing pipeline. Healthcare data is heterogeneous
+(lab values, demographics, clinical notes) and often incomplete. Handling missing values while ensuring that
+imputation choices don’t introduce bias requires careful thought. Balancing data quality, fairness, and model
+readiness was more complex than selecting the model itself.
+
+How would you improve your approach with more time/resources?
+With more time and resources, I would:
+
+Expand the dataset by collaborating with multiple hospitals to improve generalizability.
+
+Incorporate unstructured data (e.g., clinician notes) using NLP for richer features.
+
+Deploy fairness audits and bias-mitigation techniques iteratively.
+
+Build interactive dashboards for clinicians to visualize predictions and explanations in real time.
+
+B. Diagram
+AI Development Workflow (based on CRISP-DM framework):
+
+┌─────────────────────────────┐
+   │ 1. Problem Definition       │
+   │ - Define objectives         │
+   │ - Identify stakeholders     │
+   └─────────────┬───────────────┘
+                 │
+   ┌─────────────▼───────────────┐
+   │ 2. Data Collection           │
+   │ - Gather EHR, demographics  │
+   │ - Ensure privacy compliance │
+   └─────────────┬───────────────┘
+                 │
+   ┌─────────────▼───────────────┐
+   │ 3. Data Preprocessing        │
+   │ - Clean & impute missing    │
+   │ - Feature engineering       │
+   │ - Normalize/encode          │
+   └─────────────┬───────────────┘
+                 │
+   ┌─────────────▼───────────────┐
+   │ 4. Model Development         │
+   │ - Train/test split           │
+   │ - Select & tune model        │
+   │ - Cross-validation           │
+   └─────────────┬───────────────┘
+                 │
+   ┌─────────────▼───────────────┐
+   │ 5. Evaluation                │
+   │ - Accuracy, Precision, Recall│
+   │ - Fairness checks            │
+   └─────────────┬───────────────┘
+                 │
+   ┌─────────────▼───────────────┐
+   │ 6. Deployment                │
+   │ - Integrate with hospital IT │
+   │ - Monitor concept drift      │
+   │ - Ensure regulatory (HIPAA) │
+   └─────────────┬───────────────┘
+                 │
+   ┌─────────────▼───────────────┐
+   │ 7. Monitoring & Feedback     │
+   │ - Clinician-in-loop reviews │
+   │ - Continuous retraining     │
+   └─────────────────────────────┘
