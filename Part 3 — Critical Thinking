@@ -1,0 +1,59 @@
+
+A. Ethics & Bias 
+
+Q: How might biased training data affect patient outcomes in the case study?
+
+Biased training data can lead to systematically poorer predictions for certain patient groups, which in turn harms care and outcomes. Concrete examples:
+
+Underdiagnosis for underrepresented groups: If the training set contains fewer older adults, minority ethnic groups, or patients with low socioeconomic status, the model may underpredict
+readmission risk for those groups.
+That could deny them necessary follow-ups, increasing morbidity and avoidable readmissions.
+
+Resource misallocation: A model biased toward overpredicting readmissions for well-represented groups wastes limited care-management resources (calls, home visits) while neglecting truly 
+at-risk, underserved patients.
+
+Feedback loop: If clinicians act on biased predictions (e.g., fewer interventions for a subgroup), the operational data collected will reflect unequal treatment and reinforce the bias during
+retraining—creating a vicious cycle.
+
+Q: Suggest one strategy to mitigate this bias.
+
+Stratified reweighting + fairness-aware evaluation.
+
+During training, apply instance reweighting so that underrepresented groups contribute proportionally more to the loss function (or use synthetic oversampling like stratified SMOTE for 
+minority groups in training only.
+
+Simultaneously, evaluate model performance by subgroup (e.g., precision/recall per age band, ethnicity, insurance type). If disparities appear, iterate: adjust sampling, add fairness
+constraints (e.g., equalized odds), or include proxy features that capture social risk responsibly.
+
+Also, implement continuous monitoring and a clinician-in-the-loop feedback channel to catch real-world discrepancies early.
+
+
+B. Trade-offs (10 pts)
+
+Q: Discuss the trade-off between model interpretability and accuracy in healthcare.
+
+Interpretability pros: Transparent models (logistic regression, decision trees)make it easier for clinicians to understand why a prediction was made, support clinical trust
+, and facilitate regulatory approval and auditability.
+
+Accuracy pros: Complex models (gradient boosting, deep nets) often provide higher predictive
+performance on structured/heterogeneous data, capturing nonlinear interactions that simple models
+miss—potentially improving patient outcomes.
+
+Trade-off: Higher accuracy models can be opaque, making it difficult to justify or debug specific predictions.
+Conversely, highly interpretable models might be less predictive, possibly missing at-risk patients.
+
+Practical approach: Use a hybrid strategy—deploy a performant model (e.g., XGBoost) but pair it with
+robust explainability (SHAP, LIME) and produce simplified surrogate rules for frontline clinicians.
+
+Q: If the hospital has limited computational resources, how might this impact model choice?
+Impact: Limited resources constrain model complexity, training time, and inference latency.
+Large ensembles or deep neural networks may be impractical for real-time inference on local servers.
+
+Practical choices:
+Prefer lightweight, efficient models such as logistic regression, small decision trees, or pruned gradient-boosting models (fewer trees, shallower depth).
+Use model compression or distillation: train a small interpretable model to approximate a larger one’s outputs.
+Offload heavy tasks to periodic batch processing (e.g., nightly risk scoring) rather than real-time scoring, if clinical workflow allows.
+Consider edge/cloud hybrid: run inference on a secure, HIPAA-compliant cloud when local
+compute is insufficient, while minimizing PHI transfer via feature hashing or de-identification and
+ensuring BAAs and encryption are in place.
+
